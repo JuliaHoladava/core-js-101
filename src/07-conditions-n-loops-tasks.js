@@ -234,10 +234,31 @@ function findFirstSingleChar(str) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  // throw new Error('Not implemented');
+  let startChair = '';
+  let endChair = '';
+  switch (isStartIncluded) {
+    case true: startChair = '[';
+      break;
+    case false: startChair = '(';
+      break;
+    default:
+      break;
+  }
+  switch (isEndIncluded) {
+    case true: endChair = ']';
+      break;
+    case false: endChair = ')';
+      break;
+    default:
+      break;
+  }
+  if (a < b) {
+    return `${startChair}${a}, ${b}${endChair}`;
+  }
+  return `${startChair}${b}, ${a}${endChair}`;
 }
-
 
 /**
  * Reverse the specified string (put all chars in reverse order)
@@ -251,10 +272,10 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  // throw new Error('Not implemented');
+  return str.split('').reverse().join('');
 }
-
 
 /**
  * Reverse the specified integer number (put all digits in reverse order)
@@ -268,10 +289,11 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  // throw new Error('Not implemented');
+  const revStr = num.toString().split('').reverse().join('');
+  return parseInt(revStr, 10);
 }
-
 
 /**
  * Validates the CCN (credit card number) and return true if CCN is valid
@@ -293,8 +315,26 @@ function reverseInteger(/* num */) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  // throw new Error('Not implemented');
+  // if (ccn < 13 || ccn > 19) {
+  //   return false;
+  // }
+
+  const ccnArr = ccn.toString().split('').reverse();
+
+  for (let i = 1; i < ccnArr.length; i += 2) {
+    ccnArr[i] *= 2;
+    if (ccnArr[i] >= 10) {
+      ccnArr[i] -= 9;
+    }
+  }
+
+  let sum = 0;
+  for (let i = 0; i < ccnArr.length; i += 1) {
+    sum += parseInt(ccnArr[i], 10);
+  }
+  return sum % 10 === 0;
 }
 
 /**
